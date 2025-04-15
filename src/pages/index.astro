@@ -1,11 +1,31 @@
 ---
+
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Countdown from '../components/Countdown/Countdown.astro';
+
+import terruva from '../assets/terruva.png';
+import textura from '../assets/Textura.png'
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<!-- <Welcome /> -->
+	 <div class="relative">
+		 <div class="flex justify-center items-center relative z-10">
+			<a href="/">
+				<img src={terruva.src} width="300" height="300" alt="Terruva Homepage" />
+			</a>
+		 </div>
+		 <div id="wine" class="relative z-10">
+			 <Countdown />
+	
+		 </div>
+
+		 <div class="absolute w-full h-screen top-0 left-0">
+			 <img src={textura.src} alt="" class="w-full h-full opacity-35">
+		 </div>
+	 </div>
 </Layout>

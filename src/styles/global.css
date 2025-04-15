@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+
+h1 {
+  font-family: 'Orpheus Pro', sans-serif;
+  color: #4B0A1A;
+}
+
+.liquid-sensitive {
+    transition: color 0.3s ease, filter 0.3s ease;
+  }
+  .liquid-submerged {
+    color: #FAF3E9 !important;
+    /* filter: brightness(1.3) saturate(1.2) !important; */
+  }
+
+/* Estilo normal del botón */
+.boton-notificame {
+    background-color: #4B0A1A;
+    color: #FAF3E9;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  /* Estilo cuando está sumergido en el líquido */
+  .liquid-submerged.boton-notificame {
+    background-color: #FAF3E9 !important;
+    color: #4B0A1A !important;
+    border: 1px solid #4B0A1A !important;
+  }
+  
+  /* Estilo del texto dentro del botón cuando está sumergido */
+  .liquid-submerged .texto-boton {
+    color: #4B0A1A !important;
+  }
+
+  /* Estilo normal del input */
+#correo {
+    background-color: transparent;
+    color: #4B0A1A;
+  }
+  
+  #correo::placeholder {
+    color: #4B0A1A;
+    opacity: 0.7;
+  }
+  
+  /* Estilo cuando está sumergido */
+  .liquid-submerged #correo {
+    color: #FAF3E9 !important;
+    caret-color: #FAF3E9; /* Color del cursor al escribir */
+  }
+  
+  .liquid-submerged #correo::placeholder {
+    color: #FAF3E9 !important;
+    opacity: 0.8;
+  }
+  

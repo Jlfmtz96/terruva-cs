@@ -1,0 +1,327 @@
+---
+// src/components/Countdown/Countdown.astro
+import ContactForm from '../ContactForm.astro';
+import CountdownTimer from './CountdownTimer';
+
+import terruva from '../../assets/terruva.png';
+
+// Fecha objetivo
+const targetDate = new Date('2025-04-25T14:59:59');
+const now = new Date();
+const totalDuration = targetDate.getTime() - now.getTime();
+const initialDate = new Date('2025-04-01T00:00:00'); // Fecha de inicio
+const totalDays = (targetDate.getTime() - initialDate.getTime()) / (1000 * 60 * 60 * 24);
+const daysPassed = (now.getTime() - initialDate.getTime()) / (1000 * 60 * 60 * 24);
+const fillPercentage = Math.min(100, (daysPassed / totalDays) * 100);
+---
+
+<div class="countdown-wrapper">
+  <div class="countdown-container text-[#4B0A1A]">
+    <CountdownTimer client:load targetDate={targetDate} />
+    <div class="flex justify-center items-center mt-12 font-sans">
+      <!-- <form action="" class="flex items-center border-[1px] p-2 rounded-2xl liquid-sensitive">
+        <div>
+          <input id="correo" name="correo" type="text" class="p-1 focus:outline-none md:text-xl" placeholder="johndoi@email.com">
+        </div>
+        <div>
+          <button id="open-modal" class="boton-notificame liquid-sensitive hover-bg-animation py-2 px-6 rounded-xl text-xl tracking-wide">
+            Notifícame
+          </button>
+        </div>
+      </form> -->
+      <div class="flex items-center border-[1px] p-2 rounded-2xl liquid-sensitive">
+        <div>
+          <input id="correo" name="correo" type="text" class="p-1 focus:outline-none md:text-xl" placeholder="johndoi@email.com">
+        </div>
+        <div>
+          <button 
+            id="open-modal" 
+            type="button"
+            class="boton-notificame liquid-sensitive hover-bg-animation py-2 px-6 rounded-xl text-xl tracking-wide"
+          >
+            Notifícame
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal (inicialmente oculto) -->
+  <div id="contact-modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <!-- Fondo oscuro -->
+      <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-950 opacity-75"></div>
+      </div>
+      
+      <!-- Contenido del modal -->
+      <div class="inline-block px-36 pb-12 align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
+          <!-- Botón de cerrar (X) - Posicionado absolutamente -->
+          <button 
+          id="close-modal" 
+          type="button" 
+          class="absolute top-4 right-4 text-gray-700 hover:text-[#4B0A1A] transition-colors duration-200 cursor-pointer"
+          aria-label="Cerrar modal"
+        >
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div class="flex flex-col justify-between items-center">
+          <div class="w-40 h-auto">
+            <img src={terruva.src} alt="" class="w-full h-full">
+          </div>
+
+          <h1 class="text-6xl font-medium">Legado excepcional</h1>
+          <p class="text-[27px] text-[#4B0A1A]">Obtén beneficios exclusivos de preventa</p>
+
+        </div>
+        <ContactForm />
+      </div>
+    </div>
+  </div>
+  
+  <!-- Copa de vino animada -->
+  <div class="wine-glass-container">
+    <div class="wine-glass">
+      <div class="liquid" style={`--fill-level: ${fillPercentage}%`}>
+        <svg viewBox="0 0 1200 100" preserveAspectRatio="none" class="liquid-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="wineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#6e0014" />
+              <stop offset="50%" stop-color="#8B0000" />
+              <stop offset="100%" stop-color="#da0909" />
+            </linearGradient>
+        
+            <linearGradient id="shineOverlay" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ffffff33" />
+              <stop offset="50%" stop-color="#ffffff11" />
+              <stop offset="100%" stop-color="#ffffff33" />
+            </linearGradient>
+          </defs>
+        
+          <!-- Capa trasera -->
+          <path fill="url(#wineGradient)" opacity="0.7">
+            <animate 
+              attributeName="d" 
+              dur="8s" 
+              repeatCount="indefinite"
+              values="
+                M0,30 Q300,20 600,30 T1200,30 L1200,100 L0,100 Z;
+                M0,30 Q300,40 600,30 T1200,30 L1200,100 L0,100 Z;
+                M0,30 Q300,20 600,30 T1200,30 L1200,100 L0,100 Z
+              "
+            />
+          </path>
+        
+          <!-- Capa delantera -->
+          <path fill="url(#wineGradient)" opacity="0.9">
+            <animate 
+              attributeName="d" 
+              dur="5s" 
+              repeatCount="indefinite"
+              values="
+                M0,30 Q250,45 600,30 T1200,30 L1200,100 L0,100 Z;
+                M0,30 Q250,15 600,30 T1200,30 L1200,100 L0,100 Z;
+                M0,30 Q250,45 600,30 T1200,30 L1200,100 L0,100 Z
+              "
+            />
+          </path>
+        
+          <!-- Capa brillante -->
+          <path fill="url(#shineOverlay)" opacity="0.3">
+            <animate 
+              attributeName="d" 
+              dur="6s" 
+              repeatCount="indefinite"
+              values="
+                M0,30 Q300,25 600,30 T1200,30 L1200,100 L0,100 Z;
+                M0,30 Q300,35 600,30 T1200,30 L1200,100 L0,100 Z;
+                M0,30 Q300,25 600,30 T1200,30 L1200,100 L0,100 Z
+              "
+            />
+          </path>
+        </svg>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .countdown-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    /* overflow: hidden; */
+  }
+
+  .countdown-container {
+    position: relative;
+    z-index: 10;
+    font-family: 'Orpheus Pro', sans-serif;
+  }
+
+  .wine-glass-container {
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 600px;
+    z-index: 1;
+  }
+
+  .wine-glass {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* background: rgba(255, 255, 255, 0.1); */
+    border-radius: 0 0 600px 600px;
+    /* border: 4px solid rgba(255, 255, 255, 0.3); */
+    border-bottom: none;
+    overflow: hidden;
+    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); */
+  }
+
+  .liquid {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: var(--fill-level);
+    overflow: visible;
+    transition: height 1s ease-out;
+    /* background-color: rgb(0, 0, 0, 0.3); */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 20px; /* Margen superior para la animación */
+    box-sizing: border-box; /* Asegura que el padding no afecte la altura */
+    
+  }
+
+  /* .liquid svg path {
+    transform: scaleY(var(--fill-level) / 100);
+    transform-origin: bottom;
+  } */
+
+  .liquid-svg {
+    position: relative;
+    width: 100%;
+    min-height: 100px; /* Altura mínima para las ondas */
+    flex-grow: 1; /* Ocupa todo el espacio disponible */
+    display: block;
+    z-index: 2;
+    /* Ajuste fino: */
+    transform-origin: bottom;
+    transform: scaleY(1.5); /* Aumenta la altura de las ondas */
+    margin-bottom: -10px;
+  }
+
+  @media (max-width: 768px) {
+    .wine-glass-container {
+      width: 300px;
+      height: 200px;
+    }
+
+    .wine-glass {
+      border-radius: 150px 150px 0 0;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    function updateLiquidLevel() {
+      const now = new Date();
+      const target = new Date('${targetDate.toISOString()}');
+      const initial = new Date('${initialDate.toISOString()}');
+      const total = target - initial;
+      const elapsed = now - initial;
+      let progress = (elapsed / total) * 100;
+
+      progress = Math.min(100, Math.max(0, progress));
+      const liquid = document.querySelector('.liquid');
+      if (liquid) {
+        liquid.style.height = `${progress}%`;
+      }
+
+      requestAnimationFrame(updateLiquidLevel);
+    }
+
+    function updateTextColors() {
+      const liquid = document.querySelector('.liquid');
+      const liquidRect = liquid?.getBoundingClientRect();
+      
+      // Busca elementos en todo el documento y dentro de shadow roots
+      const findAllElements = (selector) => {
+        const results = [...document.querySelectorAll(selector)];
+        
+        // Buscar en shadow roots
+        document.querySelectorAll('*').forEach(element => {
+          if (element.shadowRoot) {
+            results.push(...element.shadowRoot.querySelectorAll(selector));
+          }
+        });
+        
+        return results;
+      };
+
+      const elements = findAllElements('.liquid-sensitive');
+
+      if (liquidRect) {
+        elements.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          const isFullyInsideLiquid = rect.top >= liquidRect.top && rect.bottom <= liquidRect.bottom;
+
+          if (isFullyInsideLiquid) {
+            el.classList.add('liquid-submerged');
+          } else {
+            el.classList.remove('liquid-submerged');
+          }
+        });
+      }
+    }
+
+    updateLiquidLevel();
+    
+    // Actualiza cada frame
+    function animationLoop() {
+      updateTextColors();
+      requestAnimationFrame(animationLoop);
+    }
+    animationLoop();
+
+
+    // Manejo del modal
+    const openModalBtn = document.getElementById('open-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const modal = document.getElementById('contact-modal');
+
+    if (openModalBtn && modal) {
+      openModalBtn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Evita scroll en el fondo
+      });
+    }
+
+    if (closeModalBtn && modal) {
+      closeModalBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      });
+    }
+
+    // Cerrar al hacer click fuera del modal
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  });
+
+
+</script>

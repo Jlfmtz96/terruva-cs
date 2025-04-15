@@ -1,0 +1,43 @@
+---
+
+---
+
+<div>
+    <form id="contact-form" action="" class="md:mt-10 flex flex-col gap-6">
+        <div class="mt-6 md:mt-0">
+            <label for="" class="block text-sm text-neutral-500">Nombre*</label>
+            <input id="nombre" name="nombre" type="text" class="border-b border-neutral-400 p-1 focus:outline-none focus:border-[#4B0A1A] w-full md:text-xl">
+            <span id="errorNombre" class="error text-red-500 text-sm"></span>
+        </div>
+        <div class="mt-6 md:mt-0">
+            <label for="" class="block text-sm text-neutral-500">Apellidos*</label>
+            <input id="apellido" name="apellido" type="text" class="border-b border-neutral-400 p-1 focus:outline-none focus:border-[#4B0A1A] w-full md:text-xl">
+            <span id="errorApellidos" class="error text-red-500 text-sm"></span>
+        </div>
+        <div class="mt-6 md:mt-0">
+            <label for="" class="block text-sm text-neutral-500">Correo eléctronico*</label>
+            <input id="correo" name="correo" type="text" class="border-b border-neutral-400 p-1 focus:outline-none focus:border-[#4B0A1A] w-full md:text-xl">
+            <span id="errorCorreo" class="error text-red-500 text-sm"></span>
+        </div>
+        <div class="mt-6 md:mt-0">
+            <label for="" class="block text-sm text-neutral-500">Teléfono*</label>
+            <input id="telefono" name="telefono" type="text" class="border-b border-neutral-400 p-1 focus:outline-none focus:border-[#4B0A1A] w-full md:text-xl" maxlength="10">
+            <span id="errorTelefono" class="error text-red-500 text-sm"></span>
+        </div>
+        <div class="col-span-2 md:flex justify-between">
+            <div>
+                <input type="checkbox" id="checkbox" name="checkbox">
+                <label for="" class="text-sm">Acepto las políticas del <a href="https://comebi.mx/aviso-de-privacidad.pdf" target="_blank" class="text-neutral-700 font-medium">Aviso de privacidad</a></label>
+            <span id="errorCheckbox" class="error text-red-500 text-sm"></span>
+            </div>
+            <div>
+                <span class="text-sm text-neutral-400">* Campos obligatorios</span>
+            </div>
+        </div>
+        <div class="flex flex-row-reverse">
+            <button type="submit" class="rounded-md bg-[#4b0a1a] text-white py-2 px-4 cursor-pointer">
+                Notifícame
+            </button>
+        </div>
+    </form>
+</div>
